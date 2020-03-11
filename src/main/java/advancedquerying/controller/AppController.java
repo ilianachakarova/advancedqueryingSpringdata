@@ -1,5 +1,6 @@
 package advancedquerying.controller;
 
+import advancedquerying.service.IngredientService;
 import advancedquerying.service.ShampooService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,9 +13,12 @@ import java.util.Scanner;
 @Controller
 public class AppController implements CommandLineRunner {
     private final ShampooService shampooService;
+    private final IngredientService ingredientService;
+
     @Autowired
-    public AppController(ShampooService shampooService) {
+    public AppController(ShampooService shampooService, IngredientService ingredientService) {
         this.shampooService = shampooService;
+        this.ingredientService = ingredientService;
     }
 
     @Override
@@ -42,9 +46,15 @@ public class AppController implements CommandLineRunner {
 //        double price = Double.parseDouble(scanner.nextLine());
 //        System.out.println(this.shampooService.findAllShampooWithPriceLessThan(BigDecimal.valueOf(price)).size());
 
-        int number = Integer.parseInt(scanner.nextLine());
-        this.shampooService.findShampoosWithIngredientsLessThan(number)
-                .stream().forEach(System.out::println);
+//        int number = Integer.parseInt(scanner.nextLine());
+//        this.shampooService.findShampoosWithIngredientsLessThan(number)
+//                .stream().forEach(System.out::println);
+
+        List<String>names = this.getListOfIngredientsNames(scanner);
+        this.ingredientService.updateIngredientsPrices(names).forEach(i-> System.out.println(i));
+       // BigDecimal price = BigDecimal.valueOf(Double.parseDouble(scanner.nextLine()));
+       // this.shampooService.getAllShampoosBySizeOrLabelId("MEDIUM",5).forEach(System.out::println);
+//        this.shampooService.selectAllShampoosPriceGreater(price).forEach(System.out::println);
     }
 
     private List<String> getListOfIngredientsNames(Scanner scanner) {

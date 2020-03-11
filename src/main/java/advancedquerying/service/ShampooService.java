@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface ShampooService {
+    List<String> selectAllShampoosPriceGreater(BigDecimal price);
     List<String> selectShampoosBySize(String inputSize);
     List<String> getAllShampoosBySizeOrLabelId(String inputSize, long id);
     List<String> selectShampoosByIngredients(List<String>ingredientsNames);

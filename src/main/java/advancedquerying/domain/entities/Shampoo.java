@@ -44,7 +44,7 @@ public class Shampoo extends BaseEntity {
         this.size = size;
     }
 
-    @OneToOne(optional = true, cascade = CascadeType.ALL,
+    @OneToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
             fetch = FetchType.LAZY)
     @JoinColumn(name = "label", referencedColumnName = "id")
     public Label getLabel() {
@@ -55,7 +55,7 @@ public class Shampoo extends BaseEntity {
         this.label = label;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "shampoos_ingredients",
             joinColumns = @JoinColumn(name = "shampoo_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id"))

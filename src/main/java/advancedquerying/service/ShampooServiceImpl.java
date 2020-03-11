@@ -29,6 +29,14 @@ public class ShampooServiceImpl implements ShampooService{
 
 
     @Override
+    public List<String> selectAllShampoosPriceGreater(BigDecimal price) {
+        List<Shampoo> shampoos = this.shampooRepository.findAllByPriceGreaterThanOrderByPriceDesc(price);
+        return shampoos.stream()
+                .map(shampoo -> String.format("%s %.2f",
+                        shampoo.getBrand(), shampoo.getPrice())).collect(Collectors.toList());
+    }
+
+    @Override
     public List<String> selectShampoosBySize(String inputSize) {
         Size size = Size.valueOf(inputSize.toUpperCase());
         List<Shampoo> shampoos = this.shampooRepository.findAllBySizeOrderById(size);
